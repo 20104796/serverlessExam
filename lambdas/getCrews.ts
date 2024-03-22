@@ -23,6 +23,20 @@ export const handler: APIGatewayProxyHandlerV2 = async (event, context) => {
 
         };
 
+        const queryParams = event.queryStringParameters;
+        const names = queryParams?.names ? queryParams.names: undefined;
+        if (names) {
+            let commandInput = {
+                TableName: process.env.TABLE_NAME,
+                KeyConditionExpression: "movieId = :movieId and crewRole = :crewRole and begins_with(names, :names)",
+                ExpressionAttributeValues: {
+                    ":movieId": movieId,
+                    ":crewRole": crewRole,
+                    ":names": names,
+                },
+
+            };
+        }
 
         const commandOutput = await ddbDocClient.send(new QueryCommand(commandInput));
 
