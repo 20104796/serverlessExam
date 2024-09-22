@@ -5,6 +5,8 @@ import { DynamoDBDocumentClient, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 
 const ddbDocClient = createDDbDocClient();
 
+// to delete movies by movie Id
+// can successfully execute
 interface MoviePathParams {
   movieId: string;
 }
